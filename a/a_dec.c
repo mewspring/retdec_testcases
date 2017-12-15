@@ -26,11 +26,12 @@ int32_t initialized = 0;
 
 // ------------------------ Functions -------------------------
 
-// Address range: 0x401550 - 0x4015ba
+// Address range: 0x401550 - 0x4015b2
 int main(int argc, char ** argv) {
     // entry
     __main();
-    wprintf(L"%s");
+    int16_t * format = (int16_t *)0x650068; // bp-42
+    wprintf((int16_t *)&format);
     return 0;
 }
 
@@ -153,4 +154,4 @@ void _encode_pointer(char * ptr) {
 // Detected compiler/packer: gcc (7.2.0)
 // Detected language: C
 // Detected functions: 6
-// Decompilation date: 2017-12-15 11:35:27
+// Decompilation date: 2017-12-15 11:46:02

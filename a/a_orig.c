@@ -4,5 +4,5 @@
 
 int main() {
 	wchar_t s[] = L"hello world\n";
-	wprintf(L"%s", s);
+	wprintf(s);
 }
