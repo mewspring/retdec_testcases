@@ -6,7 +6,6 @@
 
 #include <stdint.h>
 #include <stdlib.h>
-#include <wchar.h>
 
 // ------------------- Function Prototypes --------------------
 
@@ -26,32 +25,31 @@ int32_t initialized = 0;
 
 // ------------------------ Functions -------------------------
 
-// Address range: 0x401550 - 0x4015b2
+// Address range: 0x401550 - 0x401572
 int main(int argc, char ** argv) {
     // entry
     __main();
-    int16_t * format = (int16_t *)0x650068; // bp-42
-    wprintf((int16_t *)&format);
+    _wsystem(L"echo Hello world");
     return 0;
 }
 
 // From module:   /build/mingw-w64-crt/src/mingw-w64-v5.0.3/mingw-w64-crt/crt/atonexit.c
-// Address range: 0x4015c0 - 0x401672
+// Address range: 0x401580 - 0x401632
 // Line range:    33 - 53
 int32_t (*mingw_onexit(int32_t (*func)()))() {
-    int32_t v1 = __decode_pointer(*(int32_t *)&__onexitbegin); // 0x4015cc
+    int32_t v1 = __decode_pointer(*(int32_t *)&__onexitbegin); // 0x40158c
     void (**onexitend)() = NULL; // bp-20
     *(int32_t *)&onexitend = v1;
     int32_t v2;
     if (v1 == -1) {
-        // 0x4015da
+        // 0x40159a
         return _onexit((int32_t (*)())v2);
     }
-    // 0x4015f0
+    // 0x4015b0
     _lock(8);
     *(int32_t *)&onexitend = __decode_pointer(*(int32_t *)&__onexitbegin);
     int32_t v3 = __decode_pointer(*(int32_t *)&__onexitend); // bp-16
-    int32_t (*v4)() = __dllonexit((int32_t (*)())v2, &onexitend, (void (***)())&v3); // 0x401635
+    int32_t (*v4)() = __dllonexit((int32_t (*)())v2, &onexitend, (void (***)())&v3); // 0x4015f5
     _encode_pointer((char *)onexitend);
     int32_t * v5;
     *(int32_t *)&__onexitbegin = (int32_t)&v5;
@@ -62,75 +60,75 @@ int32_t (*mingw_onexit(int32_t (*func)()))() {
 }
 
 // From module:   /build/mingw-w64-crt/src/mingw-w64-v5.0.3/mingw-w64-crt/crt/gccmain.c
-// Address range: 0x4016e0 - 0x401725
+// Address range: 0x4016a0 - 0x4016e5
 // Line range:    32 - 39
 void __do_global_ctors(void) {
     // entry
     g1 = 0;
-    int32_t v1; // 0x4016fa
+    int32_t v1; // 0x4016ba
     if (*(int32_t *)((int32_t)&g2 + 4) == 0) {
-        // 0x401724
+        // 0x4016e4
         __pseudo_call(*(int32_t *)(int32_t)&g2);
         v1 = g1 - 1;
         g1 = v1;
-        // branch -> 0x4016f3
+        // branch -> 0x4016b3
         while (v1 != 0) {
-            // 0x4016f3
+            // 0x4016b3
             __pseudo_call(*(int32_t *)(4 * v1 + (int32_t)&g2));
             v1 = g1 - 1;
             g1 = v1;
-            // continue -> 0x4016f3
+            // continue -> 0x4016b3
         }
-        // 0x4016ff
-        atexit((void (*)())0x4016a0);
+        // 0x4016bf
+        atexit((void (*)())0x401660);
         return;
     }
-    int32_t v2 = 1; // 0x401714
+    int32_t v2 = 1; // 0x4016d4
     g1 = v2;
     while (*(int32_t *)(4 * (v2 + 1) + (int32_t)&g2) != 0) {
-        // 0x401714
+        // 0x4016d4
         v2++;
         g1 = v2;
-        // continue -> 0x401714
+        // continue -> 0x4016d4
     }
-    // 0x401724
+    // 0x4016e4
     __pseudo_call(*(int32_t *)(4 * v2 + (int32_t)&g2));
     v1 = g1 - 1;
     g1 = v1;
-    // branch -> 0x4016f3
+    // branch -> 0x4016b3
     while (v1 != 0) {
-        // 0x4016f3
+        // 0x4016b3
         __pseudo_call(*(int32_t *)(4 * v1 + (int32_t)&g2));
         v1 = g1 - 1;
         g1 = v1;
-        // continue -> 0x4016f3
+        // continue -> 0x4016b3
     }
-    // 0x4016ff
-    atexit((void (*)())0x4016a0);
+    // 0x4016bf
+    atexit((void (*)())0x401660);
 }
 
 // From module:   /build/mingw-w64-crt/src/mingw-w64-v5.0.3/mingw-w64-crt/crt/gccmain.c
-// Address range: 0x401730 - 0x40174b
+// Address range: 0x4016f0 - 0x40170b
 // Line range:    53 - 58
 void __main(void) {
     // entry
     if (initialized != 0) {
-        // 0x401739
+        // 0x4016f9
         return;
     }
-    // 0x401740
+    // 0x401700
     initialized = 1;
     __do_global_ctors();
 }
 
-// Address range: 0x401a70 - 0x401a74
+// Address range: 0x401a30 - 0x401a34
 int32_t __decode_pointer(int32_t result) {
     // entry
     return result;
 }
 
 // From module:   /build/mingw-w64-crt/src/mingw-w64-v5.0.3/mingw-w64-crt/crt/mingw_helpers.c
-// Address range: 0x401a80 - 0x401a84
+// Address range: 0x401a40 - 0x401a44
 // Line range:    25 - 28
 void _encode_pointer(char * ptr) {
     // entry
@@ -147,11 +145,11 @@ void _encode_pointer(char * ptr) {
 // void __cdecl _lock(int locknum);
 // _onexit_t _onexit(_onexit_t Function);
 // void __cdecl _unlock(int locknum);
-// int wprintf(const wchar_t * restrict format, ...);
+// int __cdecl _wsystem(wchar_t const * Command);
 
 // --------------------- Meta-Information ---------------------
 
 // Detected compiler/packer: gcc (7.2.0)
 // Detected language: C
 // Detected functions: 6
-// Decompilation date: 2017-12-15 11:46:02
+// Decompilation date: 2017-12-15 11:59:00
